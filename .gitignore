@@ -1,0 +1,40 @@
+# ============================================================================
+# 白名单制：默认忽略一切，只放行下面显式列出的几个文件。
+#
+# 为什么用白名单而不是黑名单：
+#   本目录共约 14 GB，其中包含
+#     - backup/  含 modemst1/2（EFS/NV，含设备唯一数据）、TA.img（Sony 设备密钥）
+#     - probe/   拉取出来的 Sony 专有二进制、第三方 APK 副本
+#     - tools/   platform-tools、TWRP 镜像等第三方二进制
+#     - firmware/ restore/ gapps/ kit/ blobs/  Sony 固件与 GApps 包
+#   黑名单一旦漏列，下一次 `git add -A` 就会把设备密钥或几百 MB 二进制提交上去。
+#   白名单下，新增文件默认**不会**被提交，必须显式放行 —— 失败方向是安全的。
+# ============================================================================
+/*
+!.gitignore
+!.gitattributes
+!README.md
+!RECOVERY.md
+!restore-modemst.sh
+
+# 以下为双保险：即使上面的放行规则被改动，这些也永远不该进仓库。
+backup/
+probe/
+tools/
+firmware/
+restore/
+gapps/
+kit/
+blobs/
+x/
+y/
+so02k-guide/
+
+# 设备唯一数据 / 厂商固件 / 第三方二进制的常见后缀
+*.img
+*.sin
+*.mbn
+*.pe
+*.apk
+*.dex
+*.arsc

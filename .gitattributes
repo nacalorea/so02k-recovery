@@ -1,0 +1,6 @@
+# 仓库内一律用 LF。重点是 restore-modemst.sh：
+# 如果被 core.autocrlf 转成 CRLF，shebang 会变成 "#!/usr/bin/env bash\r"，
+# 在 Linux / Git Bash 上直接执行会报 bad interpreter。
+* text=auto eol=lf
+*.sh text eol=lf
+*.md text eol=lf
